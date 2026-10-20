@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Falcons Jockeying Homework</title>
+<meta name="description" content="Shorelake Falcons BU14 homework: how to jockey as the 1st defender.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f6f3; --card:#ffffff; --ink:#14201a; --muted:#56635b; --line:#dfe5df;
+  --brand:#0f5132; --brand-2:#1a7a4c; --accent:#f2b705; --danger:#c0392b; --ok:#1f8a4c;
+  --grass:#2f7d46; --grass-2:#2a7240; --chalk:rgba(255,255,255,.85);
+  --shadow:0 1px 2px rgba(0,0,0,.06),0 4px 14px rgba(0,0,0,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e1411; --card:#17201b; --ink:#e8efe9; --muted:#9fb0a5; --line:#2a352f;
+    --brand:#3fbf7f; --brand-2:#57d493; --accent:#f5c842; --danger:#ff6b5b; --ok:#4fd18a;
+    --grass:#1f5a33; --grass-2:#1b512e; --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e1411; --card:#17201b; --ink:#e8efe9; --muted:#9fb0a5; --line:#2a352f;
+  --brand:#3fbf7f; --brand-2:#57d493; --accent:#f5c842; --danger:#ff6b5b; --ok:#4fd18a;
+  --grass:#1f5a33; --grass-2:#1b512e; --shadow:none;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;overflow-x:hidden}
+h1,h2,h3{font-family:"Barlow Condensed",Inter,sans-serif;letter-spacing:.01em;line-height:1.1;margin:0 0 .4em}
+h2{font-size:1.9rem;font-weight:800}
+h3{font-size:1.3rem;font-weight:600}
+p{margin:.4em 0 .8em}
+a{color:var(--brand)}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px}
+header.hero{background:linear-gradient(135deg,#0f5132,#1a7a4c);color:#fff;padding:36px 0 30px}
+.hero .tag{display:inline-block;background:var(--accent);color:#14201a;font-weight:700;font-size:.8rem;padding:4px 10px;border-radius:99px;text-transform:uppercase;letter-spacing:.06em}
+.hero h1{font-size:clamp(2.4rem,9vw,3.8rem);font-weight:800;margin:.25em 0 .1em}
+.hero p{opacity:.92;max-width:600px}
+nav.toc{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
+nav.toc .wrap{display:flex;gap:6px;overflow-x:auto;padding:10px 16px;scrollbar-width:none}
+nav.toc a{flex:none;text-decoration:none;color:var(--ink);font-weight:600;font-size:.85rem;padding:6px 12px;border-radius:99px;background:var(--bg);border:1px solid var(--line)}
+section{padding:34px 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow);margin-bottom:14px}
+.big{font-size:1.1rem}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+.three .card{text-align:center;margin:0}
+.three b{display:block;font-family:"Barlow Condensed";font-size:1.5rem;color:var(--brand)}
+.keys{counter-reset:k;display:grid;gap:12px}
+.key{display:flex;gap:14px;align-items:flex-start}
+.key::before{counter-increment:k;content:counter(k);flex:none;width:38px;height:38px;border-radius:50%;background:var(--brand);color:#fff;font:800 1.3rem "Barlow Condensed";display:grid;place-items:center}
+.key p{margin:.2em 0 0;color:var(--muted)}
+.cue{display:inline-block;margin-top:6px;background:var(--accent);color:#14201a;font-weight:700;font-size:.8rem;padding:2px 9px;border-radius:6px}
+.field-box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;box-shadow:var(--shadow)}
+svg.field{width:100%;height:auto;display:block;border-radius:10px}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 6px}
+button,.btn{font:600 .95rem Inter,sans-serif;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:9px 14px;border-radius:10px;cursor:pointer}
+button.on{background:var(--brand);border-color:var(--brand);color:#fff}
+button.primary{background:var(--accent);border-color:var(--accent);color:#14201a}
+.caption{color:var(--muted);font-size:.92rem;min-height:3em}
+.list{list-style:none;padding:0;margin:0}
+.list li{padding:10px 0;border-bottom:1px solid var(--line);display:flex;gap:10px}
+.list li:last-child{border:0}
+.ico{flex:none;font-weight:800}
+.ok{color:var(--ok)} .bad{color:var(--danger)}
+.drill h3{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.drill .time{font:600 .85rem Inter;color:var(--muted);white-space:nowrap}
+.drill ol{padding-left:20px;margin:.4em 0}
+.drill label.done{display:flex;gap:10px;align-items:center;font-weight:700;margin-top:10px;padding:10px;border-radius:10px;background:var(--bg);cursor:pointer}
+.drill input{width:22px;height:22px;accent-color:var(--brand)}
+.timer{display:flex;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap}
+.timer output{font:800 1.6rem "Barlow Condensed";min-width:70px}
+.q{margin-bottom:14px}
+.q .opts{display:grid;gap:8px;margin-top:8px}
+.q .opts button{text-align:left;line-height:1.35}
+.q .opts button.right{background:var(--ok);border-color:var(--ok);color:#fff}
+.q .opts button.wrong{background:var(--danger);border-color:var(--danger);color:#fff}
+.q .why{display:none;margin-top:8px;color:var(--muted);font-size:.93rem}
+.q.answered .why{display:block}
+.score{font:800 1.4rem "Barlow Condensed";color:var(--brand)}
+form label{display:block;font-weight:600;margin:12px 0 4px}
+input[type=text],textarea,select{width:100%;font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+textarea{min-height:90px}
+.status{margin-top:10px;font-weight:600}
+footer{padding:30px 0 50px;color:var(--muted);font-size:.85rem;text-align:center}
+@media (max-width:560px){.three{grid-template-columns:1fr}.three .card{text-align:left}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="tag">Homework · Week of Oct 19</span>
+    <h1>Jockeying</h1>
+    <p><strong>Shorelake Falcons BU14.</strong> How to defend 1v1 without diving in. Read it, watch the field demo, do the three drills, take the quiz, and send your results to the coaches. About 30 minutes total.</p>
+  </div>
+</header>
+
+<nav class="toc"><div class="wrap">
+  <a href="#what">What it is</a><a href="#keys">5 keys</a><a href="#demo">Field demo</a><a href="#win">When to win it</a><a href="#mistakes">Mistakes</a><a href="#drills">Drills</a><a href="#quiz">Quiz</a><a href="#submit">Submit</a>
+</div></nav>
+
+<main class="wrap">
+
+<section id="what">
+  <h2>What is jockeying?</h2>
+  <div class="card">
+    <p class="big">Jockeying is how the <strong>1st defender</strong> (the player closest to the ball) slows an attacker down, keeps them in front, and steers them where we want them to go, until it's the right moment to win the ball.</p>
+    <p>In our 3-5-2, <strong>every Falcon is a defender</strong> when we lose the ball. If you're closest, you're the 1st defender. That means the 9 and 10 jockey too.</p>
+    <div class="three">
+      <div class="card"><b>Delay</b>Slow them down so teammates can recover.</div>
+      <div class="card"><b>Deny</b>Block the path to our goal.</div>
+      <div class="card"><b>Direct</b>Show them where to go: away from danger.</div>
+    </div>
+  </div>
+</section>
+
+<section id="keys">
+  <h2>The 5 keys</h2>
+  <div class="card keys">
+    <div class="key"><div><h3>Close down fast</h3><p>When the ball travels to your player, sprint at them while the ball is rolling. Every yard you close now is a yard they can't use.</p><span class="cue">"Go while the ball travels"</span></div></div>
+    <div class="key"><div><h3>Break down</h3><p>In the last 3–4 yards, chop your steps, lower your hips and slow to a stop about <strong>an arm's length to 2 yards</strong> away. Arrive under control, not flying.</p><span class="cue">"Sprint, then chop"</span></div></div>
+    <div class="key"><div><h3>Get side-on</h3><p>One foot in front of the other, knees bent, weight on the balls of your feet, arms out for balance. Never stand square (feet level) — a square defender can be beaten both ways and through the legs.</p><span class="cue">"Low and side-on"</span></div></div>
+    <div class="key"><div><h3>Show them one way</h3><p>Stand slightly off-center so one side is blocked and one side looks open. Usually we <strong>show them outside</strong>, toward the sideline and away from our goal. Coach may tell you to show inside if our cover is there.</p><span class="cue">"Show them the line"</span></div></div>
+    <div class="key"><div><h3>Be patient, watch the ball</h3><p>Keep your eyes on the ball, not their feet or hips (that's where the fakes are). Shuffle and backpedal with them. Don't lunge. Wait for your moment.</p><span class="cue">"Stay on your feet"</span></div></div>
+  </div>
+</section>
+
+<section id="demo">
+  <h2>Field demo</h2>
+  <div class="field-box">
+    <svg class="field" id="field" viewBox="0 0 360 260" role="img" aria-label="Defender closing down an attacker and showing them one way">
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#f5c842"/></marker>
+        <marker id="ahr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ff6b5b"/></marker>
+        <pattern id="stripes" width="360" height="40" patternUnits="userSpaceOnUse"><rect width="360" height="20" fill="var(--grass)"/><rect y="20" width="360" height="20" fill="var(--grass-2)"/></pattern>
+      </defs>
+      <rect width="360" height="260" fill="url(#stripes)"/>
+      <rect x="14" y="8" width="332" height="244" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+      <rect x="95" y="190" width="170" height="62" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+      <rect x="140" y="230" width="80" height="22" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+      <rect x="155" y="252" width="50" height="6" fill="#fff"/>
+      <text x="180" y="248" fill="var(--chalk)" font-size="9" text-anchor="middle" font-family="Inter">OUR GOAL</text>
+      <text x="340" y="24" fill="var(--chalk)" font-size="9" text-anchor="end" font-family="Inter">SIDELINE →</text>
+      <!-- lanes -->
+      <path id="openLane" d="" stroke="#f5c842" stroke-width="3" stroke-dasharray="6 5" fill="none" marker-end="url(#ah)" opacity="0"/>
+      <path id="blockLane" d="" stroke="#ff6b5b" stroke-width="3" stroke-dasharray="3 5" fill="none" marker-end="url(#ahr)" opacity="0"/>
+      <text id="blockX" x="0" y="0" fill="#ff6b5b" font-size="22" font-weight="800" text-anchor="middle" opacity="0">✕</text>
+      <!-- cover defender -->
+      <g id="cover" opacity="0">
+        <circle r="10" fill="#0f5132" stroke="#fff" stroke-width="2"/>
+        <text y="4" fill="#fff" font-size="10" font-weight="700" text-anchor="middle" font-family="Inter">2</text>
+      </g>
+      <!-- attacker -->
+      <g id="att" transform="translate(240,70)">
+        <circle r="11" fill="#c0392b" stroke="#fff" stroke-width="2"/>
+        <circle cx="0" cy="17" r="5" fill="#fff" stroke="#222" stroke-width="1"/>
+      </g>
+      <!-- defender -->
+      <g id="def" transform="translate(170,215)">
+        <g id="hips"><rect x="-15" y="-4" width="30" height="8" rx="4" fill="#f5c842"/></g>
+        <circle r="11" fill="#1a7a4c" stroke="#fff" stroke-width="2"/>
+        <text y="4" fill="#fff" font-size="10" font-weight="700" text-anchor="middle" font-family="Inter">1</text>
+      </g>
+      <text id="phase" x="22" y="26" fill="#fff" font-size="15" font-weight="800" font-family="Barlow Condensed,Inter"></text>
+    </svg>
+    <div class="controls">
+      <button id="btnOut" class="on" type="button">Show outside</button>
+      <button id="btnIn" type="button">Show inside (to cover)</button>
+      <button id="btnPlay" class="primary" type="button">▶ Play</button>
+    </div>
+    <p class="caption" id="cap">Press Play. Green #1 is you, red is the attacker, yellow bar is your hips.</p>
+  </div>
+</section>
+
+<section id="win">
+  <h2>When to win it</h2>
+  <div class="card">
+    <p>Jockeying isn't just backing up forever. These are your <strong>triggers</strong> to step in and tackle:</p>
+    <ul class="list">
+      <li><span class="ico ok">✓</span><span><strong>Heavy touch.</strong> The ball gets away from their feet. Pounce.</span></li>
+      <li><span class="ico ok">✓</span><span><strong>Head down or back turned.</strong> They can't see you coming. Get tight.</span></li>
+      <li><span class="ico ok">✓</span><span><strong>Trapped by the line.</strong> You've shown them to the sideline and they've run out of room.</span></li>
+      <li><span class="ico ok">✓</span><span><strong>Cover arrives.</strong> When a teammate calls "I'm with you," you can be more aggressive. If you miss, they're behind you.</span></li>
+    </ul>
+    <p style="margin-top:12px">When you tackle, use your <strong>front foot</strong>, keep your weight forward and stay on your feet. Slide only as the last option.</p>
+  </div>
+</section>
+
+<section id="mistakes">
+  <h2>Common mistakes</h2>
+  <div class="card">
+    <ul class="list">
+      <li><span class="ico bad">✕</span><span><strong>Diving in.</strong> One lunge and they're past you, with nobody behind.</span></li>
+      <li><span class="ico bad">✕</span><span><strong>Arriving at full speed.</strong> You can't stop or turn. They just touch it by you.</span></li>
+      <li><span class="ico bad">✕</span><span><strong>Standing square and tall.</strong> Slow to turn and easy to nutmeg.</span></li>
+      <li><span class="ico bad">✕</span><span><strong>Too far away.</strong> More than 3 yards gives them time to look up and pass or shoot.</span></li>
+      <li><span class="ico bad">✕</span><span><strong>Buying the fake.</strong> Watching their hips or step-overs instead of the ball.</span></li>
+      <li><span class="ico bad">✕</span><span><strong>Crossing your feet.</strong> Shuffle, don't run sideways with crossed legs.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="drills">
+  <h2>Homework drills</h2>
+  <p>Do all three at least <strong>twice</strong> before next week's practice. Use cones, shoes or water bottles as markers.</p>
+
+  <div class="card drill">
+    <h3>1 · Shadow footwork <span class="time">Solo · 5 min</span></h3>
+    <ol>
+      <li>Get side-on: feet staggered, knees bent, on your toes.</li>
+      <li>Shuffle backward 5 yards, staying low. Don't cross your feet.</li>
+      <li>Drop-step: swing your hips and shuffle the other way.</li>
+      <li>Sprint 5 yards forward, then <strong>chop</strong> your steps to a stop in your stance.</li>
+    </ol>
+    <p>Do <strong>4 rounds of 30 seconds</strong>, 30 seconds rest.</p>
+    <div class="timer"><output id="t1">0:30</output><button type="button" data-timer="t1" data-sec="30">Start 30s</button></div>
+    <label class="done"><input type="checkbox" data-drill="Shadow footwork"> I did this drill</label>
+  </div>
+
+  <div class="card drill">
+    <h3>2 · Mirror channel <span class="time">Partner · 5 min</span></h3>
+    <ol>
+      <li>Make a channel about 5 yards wide and 10 yards long.</li>
+      <li>Partner (sibling, parent, friend) dribbles slowly side to side and forward.</li>
+      <li>You stay 1–2 yards away, side-on, eyes on the ball. <strong>No tackling.</strong> Just keep them in front.</li>
+      <li>Switch roles every 30 seconds.</li>
+    </ol>
+    <p>No partner? Do it without a ball: someone walks/jogs randomly and you mirror them.</p>
+    <label class="done"><input type="checkbox" data-drill="Mirror channel"> I did this drill</label>
+  </div>
+
+  <div class="card drill">
+    <h3>3 · Show them the line <span class="time">Partner · 5 min</span></h3>
+    <ol>
+      <li>Set up two small goals (gates) at the far end: one on the left, one on the right.</li>
+      <li>Before each turn, pick which gate you'll <strong>allow</strong>. Block the other.</li>
+      <li>Partner starts 10 yards away. Pass them the ball, then sprint and break down.</li>
+      <li>Win a point if they go through the gate you allowed, or if you win the ball on a bad touch.</li>
+    </ol>
+    <p>Play <strong>first to 5</strong>, then switch.</p>
+    <label class="done"><input type="checkbox" data-drill="Show them the line"> I did this drill</label>
+  </div>
+</section>
+
+<section id="quiz">
+  <h2>Quick quiz</h2>
+  <p>Tap the best answer. <span class="score" id="score">0 / 7</span></p>
+  <div id="quizBox"></div>
+</section>
+
+<section id="submit">
+  <h2>Send it to the coaches</h2>
+  <div class="card">
+    <form id="form">
+      <label for="name">Your name</label>
+      <input id="name" type="text" autocomplete="name" required>
+      <label for="pos">Position you usually play</label>
+      <select id="pos">
+        <option>Goalkeeper</option><option>Center back</option><option>Outside back / wingback</option>
+        <option>Center mid</option><option>No. 10</option><option>No. 9</option>
+      </select>
+      <label for="refl">In your own words: when should you stop jockeying and tackle?</label>
+      <textarea id="refl"></textarea>
+      <label for="q2">What part of jockeying is hardest for you?</label>
+      <textarea id="q2"></textarea>
+      <p class="caption" id="summary"></p>
+      <button class="primary" type="submit">Email my homework</button>
+      <div class="status" id="status"></div>
+    </form>
+  </div>
+</section>
+
+</main>
+<footer>Shorelake Soccer Club · Falcons BU14 · Coaching cues based on U.S. Soccer principles of defending (1st defender: delay, deny, direct).</footer>
+
+<script>
+(function(){
+  // ---------- storage helpers ----------
+  const store = {
+    get(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } },
+    set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+  };
+
+  // ---------- field demo ----------
+  const def = document.getElementById('def'), hips = document.getElementById('hips');
+  const att = document.getElementById('att'), cover = document.getElementById('cover');
+  const openLane = document.getElementById('openLane'), blockLane = document.getElementById('blockLane'), blockX = document.getElementById('blockX');
+  const phase = document.getElementById('phase'), cap = document.getElementById('cap');
+  const btnOut = document.getElementById('btnOut'), btnIn = document.getElementById('btnIn'), btnPlay = document.getElementById('btnPlay');
+  const A = {x:240,y:70}, START = {x:170,y:215};
+  let mode = 'out', anim = null;
+
+  const target = () => mode==='out' ? {x:226,y:102} : {x:256,y:102};
+  const finalAngle = () => mode==='out' ? -35 : 35;
+
+  function setDef(x,y,ang){ def.setAttribute('transform',`translate(${x},${y})`); hips.setAttribute('transform',`rotate(${ang})`); }
+  function reset(){
+    if(anim) cancelAnimationFrame(anim);
+    setDef(START.x,START.y,0);
+    [openLane,blockLane,blockX,cover].forEach(e=>e.setAttribute('opacity',0));
+    phase.textContent='';
+    cap.textContent = mode==='out'
+      ? 'Show outside: you take away the inside path to goal and leave the sideline open. The line becomes an extra defender.'
+      : 'Show inside: only when a teammate (#2) is covering inside. You steer the attacker straight into your help.';
+  }
+  function lanes(){
+    if(mode==='out'){
+      openLane.setAttribute('d','M252 80 Q300 110 320 170');
+      blockLane.setAttribute('d','M232 84 Q200 140 186 200');
+      blockX.setAttribute('x',205); blockX.setAttribute('y',150);
+    } else {
+      openLane.setAttribute('d','M230 82 Q180 110 150 140');
+      blockLane.setAttribute('d','M252 84 Q290 130 310 180');
+      blockX.setAttribute('x',292); blockX.setAttribute('y',140);
+      cover.setAttribute('transform','translate(150,152)'); cover.setAttribute('opacity',1);
+    }
+    openLane.setAttribute('opacity',1); blockLane.setAttribute('opacity',.9); blockX.setAttribute('opacity',1);
+  }
+  function play(){
+    reset();
+    const T = target(), dur = 2600; let t0 = null;
+    const sprintTo = {x: START.x+(T.x-START.x)*0.75, y: START.y+(T.y-START.y)*0.75};
+    function step(ts){
+      if(!t0) t0 = ts;
+      const t = Math.min((ts-t0)/dur,1);
+      let x,y,ang;
+      if(t<0.4){ const p=t/0.4; x=START.x+(sprintTo.x-START.x)*p; y=START.y+(sprintTo.y-START.y)*p; ang=0; phase.textContent='SPRINT'; cap.textContent='Close down fast while the ball travels.'; }
+      else { const p=Math.min((t-0.4)/0.45,1), e=1-Math.pow(1-p,2); x=sprintTo.x+(T.x-sprintTo.x)*e; y=sprintTo.y+(T.y-sprintTo.y)*e; ang=finalAngle()*e; phase.textContent=t<0.85?'BREAK DOWN':'SIDE-ON'; cap.textContent=t<0.85?'Chop your steps, get low, arrive under control.':'Side-on, arm\'s length away, one side blocked.'; }
+      setDef(x,y,ang);
+      if(t<1){ anim=requestAnimationFrame(step); }
+      else { lanes(); phase.textContent = mode==='out' ? 'SHOW OUTSIDE' : 'SHOW INSIDE'; reset_caption(); }
+    }
+    anim = requestAnimationFrame(step);
+  }
+  function reset_caption(){
+    cap.textContent = mode==='out'
+      ? 'Path to goal blocked (red). The only open lane (yellow) goes toward the sideline. Now be patient and wait for a trigger.'
+      : 'Outside blocked. The open lane runs straight into #2, your cover. Two Falcons vs one attacker.';
+  }
+  btnOut.onclick = ()=>{ mode='out'; btnOut.classList.add('on'); btnIn.classList.remove('on'); reset(); };
+  btnIn.onclick  = ()=>{ mode='in'; btnIn.classList.add('on'); btnOut.classList.remove('on'); reset(); };
+  btnPlay.onclick = play;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ setDef(target().x,target().y,finalAngle()); lanes(); reset_caption(); }
+
+  // ---------- timer ----------
+  document.querySelectorAll('[data-timer]').forEach(b=>{
+    let iv=null;
+    b.onclick=()=>{
+      const out=document.getElementById(b.dataset.timer); let s=+b.dataset.sec;
+      if(iv){ clearInterval(iv); iv=null; out.textContent='0:'+String(s).padStart(2,'0'); b.textContent='Start 30s'; return; }
+      b.textContent='Reset';
+      out.textContent='0:'+String(s).padStart(2,'0');
+      iv=setInterval(()=>{ s--; out.textContent= s>0 ? '0:'+String(s).padStart(2,'0') : 'Rest!';
+        if(s<=0){ clearInterval(iv); iv=null; b.textContent='Start 30s'; try{navigator.vibrate&&navigator.vibrate(300);}catch(e){} } },1000);
+    };
+  });
+
+  // ---------- drill checkboxes ----------
+  const saved = store.get('jockeyDrills') || {};
+  document.querySelectorAll('[data-drill]').forEach(cb=>{
+    cb.checked = !!saved[cb.dataset.drill];
+    cb.onchange=()=>{ saved[cb.dataset.drill]=cb.checked; store.set('jockeyDrills',saved); summary(); };
+  });
+
+  // ---------- quiz ----------
+  const Q = [
+    {q:'The ball is passed to an attacker 15 yards from you. What do you do first?',
+     a:['Wait where you are so they can\'t get past','Sprint at them while the ball travels, then slow down in the last few yards','Sprint full speed and slide tackle'],c:1,
+     why:'Close fast while the ball is rolling, then break down so you arrive under control.'},
+    {q:'How close should you be when you\'re jockeying?',
+     a:['Touching them','About an arm\'s length to 2 yards','5 or more yards'],c:1,
+     why:'Close enough to pressure and win a bad touch, far enough that one move doesn\'t beat you.'},
+    {q:'What should your body look like?',
+     a:['Side-on, knees bent, weight on your toes','Feet level (square), standing tall','Leaning back on your heels'],c:0,
+     why:'Side-on and low lets you shuffle and turn quickly both ways.'},
+    {q:'The attacker does three step-overs. What do you watch?',
+     a:['Their hips','Their eyes','The ball'],c:2,
+     why:'The ball can\'t fake you. Hips, shoulders and feet can.'},
+    {q:'The attacker takes a heavy touch and the ball rolls a yard away from them. What now?',
+     a:['Keep backing up','Step in and win it','Turn and run to goal'],c:1,
+     why:'A heavy touch is a trigger. That\'s your moment.'},
+    {q:'A teammate behind you yells "I\'m with you!" What changes?',
+     a:['Nothing, keep jockeying the same','You can get tighter and be more aggressive, because you have cover','Leave the attacker to your teammate'],c:1,
+     why:'With a 2nd defender covering, a missed tackle isn\'t a disaster. Pressure harder.'},
+    {q:'We lose the ball and you\'re our No. 9, closest to it. Who is the 1st defender?',
+     a:['You','The center back','The goalkeeper'],c:0,
+     why:'Whoever is closest to the ball is the 1st defender. Everyone defends.'}
+  ];
+  const box = document.getElementById('quizBox'), scoreEl = document.getElementById('score');
+  const answers = store.get('jockeyQuiz') || {};
+  function renderQuiz(){
+    box.innerHTML='';
+    Q.forEach((it,i)=>{
+      const d=document.createElement('div'); d.className='card q';
+      d.innerHTML=`<h3>${i+1}. ${it.q}</h3><div class="opts"></div><p class="why">${it.why}</p>`;
+      const opts=d.querySelector('.opts');
+      it.a.forEach((txt,j)=>{
+        const b=document.createElement('button'); b.type='button'; b.textContent=txt;
+        b.onclick=()=>{ if(answers[i]!==undefined) return; answers[i]=j; store.set('jockeyQuiz',answers); renderQuiz(); summary(); };
+        opts.appendChild(b);
+      });
+      if(answers[i]!==undefined){
+        d.classList.add('answered');
+        const bs=opts.querySelectorAll('button');
+        bs[it.c].classList.add('right');
+        if(answers[i]!==it.c) bs[answers[i]].classList.add('wrong');
+      }
+      box.appendChild(d);
+    });
+    const r=document.createElement('button'); r.type='button'; r.textContent='Reset quiz';
+    r.onclick=()=>{ Object.keys(answers).forEach(k=>delete answers[k]); store.set('jockeyQuiz',answers); renderQuiz(); summary(); };
+    box.appendChild(r);
+    scoreEl.textContent = score()+' / '+Q.length;
+  }
+  const score = ()=> Q.reduce((s,it,i)=> s + (answers[i]===it.c?1:0), 0);
+  renderQuiz();
+
+  // ---------- submit ----------
+  const drillsDone = ()=> [...document.querySelectorAll('[data-drill]')].filter(c=>c.checked).map(c=>c.dataset.drill);
+  function summary(){
+    const n = Object.keys(answers).length;
+    document.getElementById('summary').textContent = `Drills done: ${drillsDone().length}/3 · Quiz: ${score()}/${Q.length}${n<Q.length?` (${Q.length-n} unanswered)`:''}`;
+  }
+  summary();
+  document.getElementById('form').onsubmit = e=>{
+    e.preventDefault();
+    const name=document.getElementById('name').value.trim();
+    if(!name){ document.getElementById('status').textContent='Add your name first.'; return; }
+    const body = [
+      'JOCKEYING HOMEWORK',
+      'Player: '+name,
+      'Position: '+document.getElementById('pos').value,
+      'Drills done: '+(drillsDone().join(', ')||'none')+' ('+drillsDone().length+'/3)',
+      'Quiz score: '+score()+'/'+Q.length,
+      '',
+      'When to stop jockeying and tackle:',
+      document.getElementById('refl').value.trim()||'(blank)',
+      '',
+      'Hardest part for me:',
+      document.getElementById('q2').value.trim()||'(blank)'
+    ].join('\n');
+    location.href='mailto:falcons-sl@outlook.com?subject='+encodeURIComponent('Jockeying Homework - '+name)+'&body='+encodeURIComponent(body);
+    document.getElementById('status').textContent='Your email app should open with everything filled in. Hit send!';
+  };
+})();
+</script>
+</body>
+</html>
